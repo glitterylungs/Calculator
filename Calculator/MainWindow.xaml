@@ -5,8 +5,185 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="CalcMe.com" Height="650" Width="500">
+
+    <Window.Resources>
+
+        <Style TargetType="Window">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="30"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5px"/>
+            <Setter Property="Background" Value="#8E8E90"/>
+            <Setter Property="FontSize" Value="45px"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
+    </Window.Resources>
+    
+    
+    <Grid Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.7*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="1"
+            Background="#656567"
+            FontSize="25px"
+            Content="BACK"/>
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="2"
+            Background="#656567"
+            FontSize="25px"
+            Content="CLEAR"/>
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="3"
+            Content="7"
+            />
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="4"
+            Content="4"
+            />
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="5"
+            Content="1"
+            />
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="6"
+            Content="+/-"
+            />
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Background="#656567"
+            Content="1/x"
+            />
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="3"
+            Content="8"
+            />
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="4"
+            Content="5"
+            />
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="5"
+            Content="2"
+            />
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="6"
+            Content="0"
+            />
+
+        <Button
+            Grid.Column="2"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Background="#656567"
+            Content="x^2"/>
+
+        <Button
+            Grid.Column="2"
+            Grid.Row="3"
+            Content="9"
+            />
+
+        <Button
+            Grid.Column="2"
+            Grid.Row="4"
+            Content="6"
+            />
+
+        <Button
+            Grid.Column="2"
+            Grid.Row="5"
+            Content="3"
+            />
+
+        <Button
+            Grid.Column="2"
+            Grid.Row="6"
+            Content=","
+            />
+
+        <Button
+            Grid.Column="3"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Background="#F3AF4E"
+            Content="/"
+            />
+
+        <Button
+            Grid.Column="3"
+            Grid.Row="3"
+            Background="#F3AF4E"
+            Content="x"
+            />
         
+        <Button
+            Grid.Column="3"
+            Grid.Row="4"
+            Background="#F3AF4E"
+            Content="-"
+            />
+        
+        <Button
+            Grid.Column="3"
+            Grid.Row="5"
+            Background="#F3AF4E"
+            Content="+"
+            />
+
+        <Button
+            Grid.Column="3"
+            Grid.Row="6"
+            Content="="
+            Background="#EF8D00"
+            />
+
+
     </Grid>
+    
 </Window>
