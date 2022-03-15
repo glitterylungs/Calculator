@@ -71,7 +71,7 @@ namespace Calculator
                 string operation = this.textDisplay.Text;
                 DataTable dt = new DataTable();
                 var result = dt.Compute(operation, "");
-                if (result.ToString() == "∞")
+                if (result.ToString() == "∞" || result.ToString() == "NaN")
                 {
                     this.textDisplay.Text = "";
                 }
@@ -90,23 +90,100 @@ namespace Calculator
 
         private void backClick(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            string operation = this.textDisplay.Text;
-            if(operation.Length > 0)
+            try
             {
-                operation = operation.Remove(operation.Length - 1);
-                this.textDisplay.Text = operation;
+                string operation = this.textDisplay.Text;
+                if (operation.Length > 0)
+                {
+                    operation = operation.Remove(operation.Length - 1);
+                    this.textDisplay.Text = operation;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void clearClick(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            string operation = this.textDisplay.Text;
-            if (operation.Length > 0)
+            try
             {
-                operation = "";
-                this.textDisplay.Text = operation;
+                string operation = this.textDisplay.Text;
+                if (operation.Length > 0)
+                {
+                    operation = "";
+                    this.textDisplay.Text = operation;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void plusMinusClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string operation = this.textDisplay.Text;
+                DataTable dt = new DataTable();
+                var result = dt.Compute(operation, "");
+              
+                if (result.ToString().StartsWith("-"))
+                {  
+                   this.textDisplay.Text = result.ToString().Replace(",", ".").Replace("-","");
+                }
+                else
+                {
+                    this.textDisplay.Text = "-" + result.ToString().Replace(",", ".");
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void squareClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double x = 0;
+                string operation = this.textDisplay.Text;
+                DataTable dt = new DataTable();
+                var result = dt.Compute(operation, "");
+                double.TryParse(result.ToString(), out x);
+
+                this.textDisplay.Text = (x*x).ToString().Replace(",", ".");
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void fractionClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double x = 0;
+                string operation = this.textDisplay.Text;
+                DataTable dt = new DataTable();
+                var result = dt.Compute(operation, "");
+                double.TryParse(result.ToString(), out x);
+                if(result.ToString() != "0")
+                {
+                    this.textDisplay.Text = (1 / x).ToString().Replace(",", ".");
+                }
+                
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

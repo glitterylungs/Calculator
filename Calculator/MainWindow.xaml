@@ -103,7 +103,8 @@
             x:Name="btnPlusMinus"
             Grid.Column="0"
             Grid.Row="6"
-            Content="+/-"/>
+            Content="+/-" 
+            Click="plusMinusClick"/>
 
         <Button
             x:Name="btnFraction"
@@ -111,7 +112,8 @@
             Grid.Row="1"
             Grid.RowSpan="2"
             Background="#656567"
-            Content="1/x"/>
+            Content="1/x" 
+            Click="fractionClick"/>
 
         <Button
             x:Name="btn8"
@@ -147,7 +149,8 @@
             Grid.Row="1"
             Grid.RowSpan="2"
             Background="#656567"
-            Content="x^2"/>
+            Content="x^2" 
+            Click="squareClick"/>
 
         <Button
             x:Name="btn9"
