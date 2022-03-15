@@ -35,8 +35,9 @@ namespace Calculator
                 string operation = this.textDisplay.Text;
                 if (operation.Length < 10) //maksymalna dlugosc w textblock
                 {
-                    if (!(operation.Length == 9 && (element == "*" || element == "/" || element == "+"
-                        || element == "-"))) // +,-, *, /, nie moga wystepowac na ostatnim dostepnym miejscu znakowym
+                    if ((!(operation.Length == 9 && (element == "*" || element == "/" || element == "+"
+                        || element == "-"))) || (operation.Length == 9 && (operation.EndsWith("+") || operation.EndsWith("-")
+                            || operation.EndsWith("*") || operation.EndsWith("/")))) // +,-, *, /, nie moga wystepowac na ostatnim dostepnym miejscu znakowym
                     {
                         if ((element.Equals("*") || element.Equals("/") || element.Equals("+") || element.Equals("-"))
                             && ( operation.EndsWith("+") || operation.EndsWith("-") 
@@ -71,13 +72,22 @@ namespace Calculator
                 string operation = this.textDisplay.Text;
                 DataTable dt = new DataTable();
                 var result = dt.Compute(operation, "");
-                if (result.ToString() == "∞" || result.ToString() == "NaN")
+                if (result.ToString() == "∞" || result.ToString() == "NaN" || result.ToString() == "-∞" || result.ToString() == "-NaN")
                 {
+                    MessageBox.Show("Nie można dzielić przez 0");
                     this.textDisplay.Text = "";
                 }
                 else
                 {
-                    this.textDisplay.Text = result.ToString().Replace(",", ".");
+                    if (result.ToString().Length > 9)
+                    {
+                        this.textDisplay.Text = result.ToString().Replace(",", ".").Substring(0, 10);
+                    }
+                    else
+                    {
+                        this.textDisplay.Text = result.ToString().Replace(",", ".");
+                    }
+                    
                 }
                 
             }
@@ -129,14 +139,31 @@ namespace Calculator
                 string operation = this.textDisplay.Text;
                 DataTable dt = new DataTable();
                 var result = dt.Compute(operation, "");
-              
-                if (result.ToString().StartsWith("-"))
-                {  
-                   this.textDisplay.Text = result.ToString().Replace(",", ".").Replace("-","");
+                if (result.ToString() == "∞" || result.ToString() == "NaN" || result.ToString() == "-∞" || result.ToString() == "-NaN")
+                {
+                    MessageBox.Show("Nie można dzielić przez 0");
+                    this.textDisplay.Text = "";
+                }
+                else if (operation.ToString() == "")
+                {
+                    MessageBox.Show("Brak danych");
+                    this.textDisplay.Text = "";
+                }
+                else if (operation.ToString() == "0" || result.ToString() == "0")
+                {
+                    MessageBox.Show("Zero nie jest liczbą dotatnią ani ujemną");
+                    this.textDisplay.Text = "";
                 }
                 else
                 {
-                    this.textDisplay.Text = "-" + result.ToString().Replace(",", ".");
+                    if (result.ToString().StartsWith("-"))
+                    {
+                        this.textDisplay.Text = result.ToString().Replace(",", ".").Replace("-", "");
+                    }
+                    else
+                    {
+                        this.textDisplay.Text = "-" + result.ToString().Replace(",", ".");
+                    }
                 }
             }
 
@@ -152,11 +179,39 @@ namespace Calculator
             {
                 double x = 0;
                 string operation = this.textDisplay.Text;
-                DataTable dt = new DataTable();
-                var result = dt.Compute(operation, "");
-                double.TryParse(result.ToString(), out x);
+                if (!(operation == "∞" || operation.ToString() == "NaN" || operation.ToString() == "-∞" || operation.ToString() == "-NaN"))
+                {
+                    DataTable dt = new DataTable();
+                    var result = dt.Compute(operation, "");
+                    if (result.ToString() == "∞" || result.ToString() == "NaN" || result.ToString() == "-∞" || result.ToString() == "-NaN")
+                    {
+                        MessageBox.Show("Nie można dzielić przez 0");
+                        this.textDisplay.Text = "";
+                    }
+                    else if (operation.ToString() == "")
+                    {
+                        MessageBox.Show("Brak danych");
+                        this.textDisplay.Text = "";
+                    }
+                    else if (operation.Length > 5)
+                    {
+                        MessageBox.Show("Ta wartość jest za duża");
+                        this.textDisplay.Text = "";
+                    }
+                    else
+                    {
+                        double.TryParse(result.ToString(), out x);
+                        this.textDisplay.Text = (x * x).ToString().Replace(",", ".");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie można dzielić przez 0");
+                    this.textDisplay.Text = "";
+                }
+               
 
-                this.textDisplay.Text = (x*x).ToString().Replace(",", ".");
+                    
             }
 
             catch (Exception ex)
@@ -171,14 +226,49 @@ namespace Calculator
             {
                 double x = 0;
                 string operation = this.textDisplay.Text;
-                DataTable dt = new DataTable();
-                var result = dt.Compute(operation, "");
-                double.TryParse(result.ToString(), out x);
-                if(result.ToString() != "0")
+                if (operation.ToString() == "∞" || operation.ToString() == "NaN" || operation.ToString() == "-∞" || operation.ToString() == "-NaN")
                 {
-                    this.textDisplay.Text = (1 / x).ToString().Replace(",", ".");
+                    MessageBox.Show("Nie można dzielić przez 0");
+                    this.textDisplay.Text = "";
                 }
-                
+                else if (operation.ToString() == "")
+                {
+                    MessageBox.Show("Brak danych");
+                    this.textDisplay.Text = "";
+                }
+                else if(operation.ToString() == "0")
+                {
+                    MessageBox.Show("Nie można dzielić przez 0");
+                    this.textDisplay.Text = "";
+                }
+                else
+                {
+                    DataTable dt = new DataTable();
+                    var result = dt.Compute(operation, "");
+                    if (result.ToString() == "∞" || result.ToString() == "NaN" || result.ToString() == "-∞" || result.ToString() == "-NaN" || result.ToString() == "0")
+                    {
+                        MessageBox.Show("Nie można dzielić przez 0");
+                        this.textDisplay.Text = "";
+                    }
+                    else
+                    {
+                        double.TryParse(result.ToString(), out x);
+                        var final = 1 / x;
+                        if (result.ToString() != "0")
+                        {
+                            if (final.ToString().Length > 9)
+                            {
+                                this.textDisplay.Text = final.ToString().Replace(",", ".").Substring(0, 10);
+                            }
+                            else
+                            {
+                                this.textDisplay.Text = final.ToString().Replace(",", ".");
+                            }
+
+                        }
+                    }
+
+                }
             }
 
             catch (Exception ex)
