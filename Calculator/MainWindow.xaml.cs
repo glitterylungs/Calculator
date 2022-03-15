@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace Calculator
 {
@@ -23,6 +24,90 @@ namespace Calculator
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void componentClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Button button = sender as Button;
+                string element = button.Content.ToString();
+                string operation = this.textDisplay.Text;
+                if (operation.Length < 10) //maksymalna dlugosc w textblock
+                {
+                    if (!(operation.Length == 9 && (element == "*" || element == "/" || element == "+"
+                        || element == "-"))) // +,-, *, /, nie moga wystepowac na ostatnim dostepnym miejscu znakowym
+                    {
+                        if ((element.Equals("*") || element.Equals("/") || element.Equals("+") || element.Equals("-"))
+                            && ( operation.EndsWith("+") || operation.EndsWith("-") 
+                            || operation.EndsWith("*") || operation.EndsWith("/"))) //operatory nie moga wystepowac obok sb, zastepowanie operatora innym
+                        {
+                            operation = operation.Remove(operation.Length - 1) + element;
+                            this.textDisplay.Text = operation;
+                        }
+                        else
+                        {
+                            if (!(operation.Length == 0 && (element == "*" || element == "/" || element == "+"
+                        || element == "-")))
+                            {
+                                this.textDisplay.Text += element;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
+            
+        }
+
+        private void equalClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string operation = this.textDisplay.Text;
+                DataTable dt = new DataTable();
+                var result = dt.Compute(operation, "");
+                if (result.ToString() == "∞")
+                {
+                    this.textDisplay.Text = "";
+                }
+                else
+                {
+                    this.textDisplay.Text = result.ToString().Replace(",", ".");
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void backClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            string operation = this.textDisplay.Text;
+            if(operation.Length > 0)
+            {
+                operation = operation.Remove(operation.Length - 1);
+                this.textDisplay.Text = operation;
+            }
+        }
+
+        private void clearClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            string operation = this.textDisplay.Text;
+            if (operation.Length > 0)
+            {
+                operation = "";
+                this.textDisplay.Text = operation;
+            }
         }
     }
 }

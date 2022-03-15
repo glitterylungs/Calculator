@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="CalcMe.com" Height="650" Width="500">
+        ResizeMode="NoResize"
+        Title="CalcMe.com" Height="650" Width="500" Background="Black">
 
     <Window.Resources>
 
@@ -17,10 +18,14 @@
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="25"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
                 </Style>
             </Style.Resources>
-            <Setter Property="Margin" Value="4px"/>
+            <Setter Property="Margin" Value="2"/>
             <Setter Property="Background" Value="#8E8E90"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style x:Key="onTextBlock" TargetType="TextBlock">
@@ -32,14 +37,10 @@
             <Setter Property="FontWeight" Value="DemiBold"/>
         </Style>
 
-        <Style  x:Key="onButton" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Margin" Value="3,1,3,3"/>
-        </Style>
     </Window.Resources>
 
 
-    <Grid Background="Black">
+    <Grid Background="Black" Margin="7">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -61,215 +62,172 @@
             x:Name="btnBack"
             Grid.Column="0"
             Grid.Row="1"
-            Background="#656567">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="BACK" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#656567"
+            FontSize="25"
+            Content="BACK" 
+            Click="backClick"/>
+
 
         <Button
             x:Name="btnClear"
             Grid.Column="0"
             Grid.Row="2"
-            Background="#656567">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="CLEAR" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#656567"
+            FontSize="25"
+            Content="CLEAR" 
+            Click="clearClick"/>
 
         <Button
             x:Name="btn7"
             Grid.Column="0"
-            Grid.Row="3">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="7" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="3"
+            Content="7"
+            Click="componentClick"/>
 
         <Button
             x:Name="btn4"
             Grid.Column="0"
-            Grid.Row="4">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="4" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="4"
+            Content="4"
+            Click="componentClick"/>
 
         <Button
             x:Name="btn1"
             Grid.Column="0"
-            Grid.Row="5">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="1" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="5"
+            Click="componentClick"
+            Content="1"/>
+
 
         <Button
             x:Name="btnPlusMinus"
             Grid.Column="0"
-            Grid.Row="6">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="+/-" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="6"
+            Content="+/-"/>
 
         <Button
             x:Name="btnFraction"
             Grid.Column="1"
             Grid.Row="1"
             Grid.RowSpan="2"
-            Background="#656567">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="1/x" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#656567"
+            Content="1/x"/>
 
         <Button
             x:Name="btn8"
             Grid.Column="1"
-            Grid.Row="3">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="8" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="3"
+            Content="8"
+            Click="componentClick"/>
 
         <Button
             x:Name="btn5"
             Grid.Column="1"
-            Grid.Row="4">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="5" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="4"
+            Content="5"
+            Click="componentClick"/>
 
         <Button
             x:Name="btn2"
             Grid.Column="1"
-            Grid.Row="5">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="2" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="5"
+            Content="2"
+            Click="componentClick"/>
 
         <Button
             x:Name="btn0"
             Grid.Column="1"
-            Grid.Row="6">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="0" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="6"
+            Content="0"
+            Click="componentClick"/>
 
         <Button
             x:Name="btnSquare"
             Grid.Column="2"
             Grid.Row="1"
             Grid.RowSpan="2"
-            Background="#656567">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="x^2" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#656567"
+            Content="x^2"/>
 
         <Button
             x:Name="btn9"
             Grid.Column="2"
-            Grid.Row="3">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="9" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="3"
+            Content="9"
+            Click="componentClick"/>
 
 
         <Button
             x:Name="btn6"
             Grid.Column="2"
-            Grid.Row="4">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="6" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="4"
+            Content="6"
+            Click="componentClick"/>
 
         <Button
             x:Name="btn3"
             Grid.Column="2"
-            Grid.Row="5">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="3" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="5"
+            Content="3"
+            Click="componentClick"/>
 
         <Button
             x:Name="btnComma"
             Grid.Column="2"
-            Grid.Row="6">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="," Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Grid.Row="6"
+            Content="."
+            Click="componentClick"/>
 
         <Button
             x:Name="btnDivide"
             Grid.Column="3"
             Grid.Row="1"
             Grid.RowSpan="2"
-            Background="#F3AF4E">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="/" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#F3AF4E"
+            Content="/"
+            Click="componentClick"/>
 
         <Button
             x:Name="btnMultiply"
             Grid.Column="3"
             Grid.Row="3"
-            Background="#F3AF4E">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="x" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#F3AF4E"
+            Content="*"
+            Click="componentClick"/>
 
         <Button
             x:Name="btnMinus"
             Grid.Column="3"
             Grid.Row="4"
-            Background="#F3AF4E">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="-" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
-             
-           
+            Background="#F3AF4E"
+            Content="-"
+            Click="componentClick"/>
+
+
 
         <Button
             x:Name="btnPlus"
             Grid.Column="3"
             Grid.Row="5"
-            Background="#F3AF4E">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="+" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#F3AF4E"
+            Content="+"
+            Click="componentClick"/>
 
 
         <Button 
             x:Name="btnEqual"
             Grid.Column="3"
             Grid.Row="6"
-            Background="#EF8D00">
-            <Viewbox StretchDirection="Both">
-            <TextBlock Text="=" Style="{StaticResource onButton}"/>
-            </Viewbox>
-        </Button>
+            Background="#EF8D00" 
+            Click="equalClick"
+            Content="="/>
 
         <TextBlock
             x:Name="textDisplay"
             Style="{StaticResource onTextBlock}"
             Grid.Column="0"
-            Grid.ColumnSpan="4">
-            <Viewbox StretchDirection="Both">
-                <TextBlock Text="lalal" Style="{StaticResource onButton}"/>
-            </Viewbox>
+            Grid.ColumnSpan="4"
+            Text="">
         </TextBlock>
 
     </Grid>
